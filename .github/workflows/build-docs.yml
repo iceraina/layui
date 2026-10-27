@@ -1,8 +1,8 @@
-name: Build Layui 2.x Docs
+name: Build Layui 2.x-stable Docs
 on:
-  workflow_dispatch: # ✅ 支持手动点按钮触发在线构建（重点！你随时可以手动跑）
+  workflow_dispatch:
   push:
-    branches: [ 2.x ]
+    branches: [ 2.x-stable ]
 
 jobs:
   build:
@@ -11,7 +11,7 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
         with:
-          ref: 2.x
+          ref: 2.x-stable
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -24,6 +24,6 @@ jobs:
       - name: Upload built static docs
         uses: actions/upload-artifact@v4
         with:
-          name: layui-2x-static-docs
+          name: layui-2.x-stable-docs
           path: docs/dist
           retention-days: 30
