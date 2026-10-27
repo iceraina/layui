@@ -1,0 +1,29 @@
+name: Build Layui 2.x Docs
+on:
+  workflow_dispatch: # ✅ 支持手动点按钮触发在线构建（重点！你随时可以手动跑）
+  push:
+    branches: [ 2.x ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          ref: 2.x
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm install
+      - name: Build docs
+        run: npm run docs
+      - name: Upload built static docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: layui-2x-static-docs
+          path: docs/dist
+          retention-days: 30
